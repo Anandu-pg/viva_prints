@@ -958,6 +958,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: border-color 0.25s, box-shadow 0.25s;
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 .form-group input:focus,
 .form-group select:focus,
@@ -1140,6 +1141,171 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* =============================================
+   NEW PRODUCT TAG VARIANTS
+   ============================================= */
+.glow-rose   { background: linear-gradient(90deg, hsl(340,70%,40%), hsl(340,80%,62%), hsl(340,70%,78%)); }
+.glow-teal   { background: linear-gradient(90deg, hsl(175,70%,28%), hsl(175,80%,45%), hsl(175,70%,65%)); }
+
+.tag-rose { background: hsla(340,74%,55%,0.12); color: hsl(340,65%,45%); border: 1px solid hsla(340,74%,55%,0.25); }
+.tag-teal { background: hsla(175,70%,40%,0.12); color: hsl(175,70%,30%); border: 1px solid hsla(175,70%,40%,0.25); }
+
+/* =============================================
+   PRODUCT FILTER TABS
+   ============================================= */
+.product-filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.filter-tab {
+  padding: 0.5rem 1.4rem;
+  border-radius: 99px;
+  border: 1.5px solid hsla(220, 15%, 82%, 1);
+  background: var(--white);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  letter-spacing: 0.02em;
+}
+.filter-tab:hover {
+  border-color: var(--gold);
+  color: var(--gold-dark);
+  background: hsla(43,74%,55%,0.06);
+}
+.filter-tab.active {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: 0 4px 18px hsla(43,74%,45%,0.35);
+}
+
+/* Product card hidden state for filter */
+.product-card.hidden-filter {
+  display: none;
+}
+
+/* =============================================
+   PRODUCT ICON DISPLAY (cards without photos)
+   ============================================= */
+.product-icon-card {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+.product-icon-display {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.product-big-icon {
+  font-size: 4rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+  animation: float-icon 3s ease-in-out infinite;
+}
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+.product-icon-label {
+  color: hsla(0,0%,100%,0.75);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   GALLERY SECTION
+   ============================================= */
+.gallery-section {
+  padding: var(--space-3xl) 0 calc(var(--space-3xl) - 1rem);
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+.gallery-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+.gallery-section .section-tag { border-color: hsla(43,74%,55%,0.3); }
+.gallery-section .section-title { color: var(--white); }
+.gallery-section .section-desc  { color: hsla(0,0%,100%,0.5); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 260px 260px;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--charcoal-3);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out), filter 0.4s;
+  filter: brightness(0.85) saturate(0.9);
+}
+.gallery-item:hover img {
+  transform: scale(1.08);
+  filter: brightness(1) saturate(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, hsla(220,20%,5%,0.75) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay span {
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: hsla(43,74%,55%,0.18);
+  border: 1px solid hsla(43,74%,55%,0.3);
+  backdrop-filter: blur(6px);
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+}
+
+/* Spanning gallery items */
+.gallery-tall  { grid-row: span 2; }
+.gallery-wide  { grid-column: span 2; }
+
+.gallery-cta {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+/* =============================================
    RESPONSIVE
    ============================================= */
 @media (max-width: 1024px) {
@@ -1148,6 +1314,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { gap: 2.5rem; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+  .gallery-tall { grid-row: span 1; }
+  .gallery-wide { grid-column: span 2; }
 }
 
 @media (max-width: 768px) {
@@ -1179,7 +1348,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     margin: 0 auto;
   }
 
-  .testimonials-track { }
+  .testimonials-track { width: 100%; }
   .testimonial-card { flex: 0 0 85vw; }
 
   .contact-grid { grid-template-columns: 1fr; }
@@ -1187,6 +1356,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   .quote-form { grid-template-columns: 1fr; }
   .form-group.span-full { grid-column: 1; }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px 200px;
+  }
+  .gallery-tall { grid-row: span 2; }
+  .gallery-wide { grid-column: span 2; }
+
+  .product-filter-tabs { gap: 0.4rem; }
+  .filter-tab { font-size: 0.78rem; padding: 0.4rem 1rem; }
 
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
 

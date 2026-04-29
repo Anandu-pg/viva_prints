@@ -241,19 +241,19 @@ document.addEventListener('DOMContentLoaded', () => {
   window.handleFormSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const name     = form.name.value.trim();
-    const phone    = form.phone.value.trim();
-    const product  = form.product.value;
-    const qty      = form.quantity.value.trim();
-    const message  = form.message.value.trim();
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const product = form.product.value;
+    const qty = form.quantity.value.trim();
+    const message = form.message.value.trim();
 
     const productLabels = {
-      wedding:      'Wedding Cards & Invitations',
-      corporate:    'Corporate ID Cards',
-      business:     'Business Cards',
+      wedding: 'Wedding Cards & Invitations',
+      corporate: 'Corporate ID Cards',
+      business: 'Business Cards',
       housewarming: 'Housewarming Cards',
-      special:      'Special Occasion Cards',
-      other:        'Other'
+      special: 'Special Occasion Cards',
+      other: 'Other'
     };
 
     const wa = [
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       message ? `*Details:* ${message}` : '',
     ].filter(Boolean).join('\n');
 
-    const url = `https://wa.me/919447XXXXXX?text=${encodeURIComponent(wa)}`;
+    const url = `https://wa.me/919745534679?text=${encodeURIComponent(wa)}`;
     window.open(url, '_blank');
     form.reset();
 
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
+      if (target) {     
         e.preventDefault();
         const navH = navbar.offsetHeight;
         const top = target.getBoundingClientRect().top + window.scrollY - navH;
@@ -340,5 +340,25 @@ document.addEventListener('DOMContentLoaded', () => {
     { rootMargin: '-40% 0px -55% 0px' }
   );
   sections.forEach(s => activeSectionObserver.observe(s));
+
+  /* ==========================================
+     14. PRODUCT FILTER TABS
+  ========================================== */
+  const filterTabs   = document.querySelectorAll('.filter-tab');
+  const productCards = document.querySelectorAll('#products-grid .product-card');
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filter = tab.dataset.filter;
+      productCards.forEach(card => {
+        const cat = card.dataset.cat;
+        const show = filter === 'all' || cat === filter;
+        card.classList.toggle('hidden-filter', !show);
+      });
+    });
+  });
 
 });
